@@ -1,9 +1,11 @@
+
 name: Build DANGMOD APK
 
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
@@ -20,8 +22,9 @@ jobs:
           java-version: '17'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v4
+        uses: android-actions/setup-android@v3
         with:
+          cmdline-tools-version: 11076708
           accept-android-sdk-licenses: true
           packages: |
             platform-tools
@@ -30,8 +33,6 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.9'
 
       - name: Build APK
         run: gradle assembleDebug
